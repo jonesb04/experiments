@@ -4,17 +4,26 @@ This module contains the functions that will be used to query the mongoDB
 Dependencies:
     pymongo
 """
-import pymongo
-import os
 from pymongo import MongoClient
 
-client = MongoClient('localhost', 27017)
 
-try:
-    print(client.server_info())
+def connect_mongo_db():
+    client = MongoClient('localhost', 27017)
+    try:
+        print(client.server_info())
 
-except Exception:
-    print("Unable to connect to the server.")
+    except Exception:
+        print("Unable to connect to the server.")
 
-db = client.mirrulations
-print(db.list_collection_names())
+    return client
+
+
+def get_done_counts(db):
+    dockets_count = int(db['mirrulations']['dockets'].count_documents({}))
+    docs_count = int(db['mirrulations']['documents'].count_documents({}))
+    comments_count = int(db['mirrulations']['comments'].count_documents({}))
+    return dockets_count + docs_count + comments_count
+
+
+client = connect_mongo_db()
+print(get_done_counts(client))
