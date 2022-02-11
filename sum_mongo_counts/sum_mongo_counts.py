@@ -1,12 +1,20 @@
 """
-This module contains the functions that will be used to query the mongoDB    
+This module contains the functions that will be used to query the mongoDB
+
+Dependencies:
+    pymongo
 """
+import pymongo
+import os
+from pymongo import MongoClient
 
-def get_count_one_table():
-    """ returns the number of entries in a mongo table as an int """
-    pass
+client = MongoClient('localhost', 27017)
 
+try:
+    print(client.server_info())
 
-def get_count_all_tables():
-    """ returns the number of entries in all tables in a mongo db as an int """
-    pass
+except Exception:
+    print("Unable to connect to the server.")
+
+db = client.mirrulations
+print(db.list_collection_names())
