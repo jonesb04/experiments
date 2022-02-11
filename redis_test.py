@@ -2,21 +2,20 @@ import redis
 import time
 import fakeredis
 
-def is_redis_available():
+def is_redis_available(database):
     try:
-        # return fakeredis.FakeRedis('localhost').ping() # Not sure if the database is at localhost
-        return redis.Redis('localhost').ping() # Not sure if the database is at localhost
+        return database.ping()
     except (ConnectionRefusedError, redis.BusyLoadingError) as error:
-        print(error)
         return False
 
 def main():
-    if is_redis_available():
-        database = redis.Redis('redis')
-        # database = fakeredis.FakeRedis('redis')
-    else:
-        # Wait for redis to start
+    database = fakeredis.FakeRedis('redis')
+    # Load data here
+    while not is_redis_available(database):
+        print("Busy Loading")
         time.sleep(30)
+    # then Code in work generator accessing redis
+        
 
 if __name__=='__main__':
     main()
