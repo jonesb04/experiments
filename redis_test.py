@@ -4,8 +4,8 @@ import fakeredis
 
 def is_redis_available():
     try:
-        # return fakeredis.FakeRedis('localhost').ping() # Not sure if the database is at localhost
-        return redis.Redis('localhost').ping() # Not sure if the database is at localhost
+        # return fakeredis.FakeRedis('localhost').ping() # Not sure if the database is at localhost or 'redis'
+        return redis.Redis('redis').ping() # Not sure if the database is at localhost or 'redis'
     except (ConnectionRefusedError, redis.BusyLoadingError) as error:
         print(error)
         return False
