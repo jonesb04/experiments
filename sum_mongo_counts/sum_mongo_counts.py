@@ -2,7 +2,7 @@
 This module contains the functions that will be used to query the mongoDB    
 """
 
-def get_count_one_db():
+def get_count_one_table():
     """ returns the number of entries in a mongo table as an int """
     pass
 
