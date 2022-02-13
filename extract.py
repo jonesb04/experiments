@@ -1,12 +1,14 @@
+"""
+The following installations must be made in the terminal in order for the program to work:
+    brew install poppler
+    pip install pdftotext
+"""
 import requests
-import PyPDF2
+import pdftotext
 
-pdf = open('EPA-HQ-OW-2021-0602-0130_attachment_1.pdf', 'rb')
+with open('EPA-HQ-OW-2021-0602-0130_attachment_1.pdf', 'rb') as file:
+    pdf = pdftotext.PDF(file)
 
-pdfReader = PyPDF2.PdfFileReader(pdf)
-first = pdfReader.getPage(0)
-second = pdfReader.getPage(1)
-print(first.extractText())
-print()
-print(second.extractText())
-
+with open('PDF_As_Text.txt', 'w') as file:
+    for page in pdf:
+            file.write(page)
