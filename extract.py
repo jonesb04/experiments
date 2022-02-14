@@ -1,12 +1,15 @@
 import requests
-import PyPDF2
+import pdftotext
 
-pdf = open('EPA-HQ-OW-2021-0602-0130_attachment_1.pdf', 'rb')
+with open('EPA-HQ-OW-2021-0602-0130_attachment_1.pdf', 'rb') as f:
+    pdf = pdftotext.PDF(f)
 
-pdfReader = PyPDF2.PdfFileReader(pdf)
-first = pdfReader.getPage(0)
-second = pdfReader.getPage(1)
-print(first.extractText())
-print()
-print(second.extractText())
+for page in pdf:
+    print(page)
+
+#with open('extracted.txt', 'w') as f:
+ #  f.write(first)
+  # f.write('\n')
+  # f.write(second)
+
 
