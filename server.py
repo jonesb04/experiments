@@ -1,7 +1,5 @@
 
 from flask import Flask, request
-import requests
-import base64
 import pdftotext
 
 app = Flask(__name__)
@@ -16,13 +14,17 @@ def saves_content():
     return "Received"
 
 """
-Writes attachment content to disk.
+Writes attachment content and extracted text from PDF to disk
+URL's can be found in README
 """
 def save_to_disk(data):
     with open("attachment.pdf", 'wb') as f:
         f.write(data)
     extract_pdf_to_txt('attachment.pdf')
 
+'''
+Extracts text from PDF
+'''
 def extract_pdf_to_txt(pdf):
     with open(pdf, 'rb') as file:
         txt = pdftotext.PDF(file)
