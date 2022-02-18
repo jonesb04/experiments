@@ -12,7 +12,6 @@ URL is decoded and is sent as a param to save_to_disk()
 @app.route('/attachment', methods=['POST'])
 def saves_content():
     data = request.get_data()
-    # print(data, type(data))
     save_to_disk(data)
     return "Received"
 
@@ -20,7 +19,7 @@ def saves_content():
 Writes attachment url to disk.
 """
 def save_to_disk(data):
-    with open("attachment5.pdf", 'wb') as f:
+    with open("attachment.pdf", 'wb') as f:
         f.write(data)
 
 # TODO: Add a function that extracts text from the PDF
