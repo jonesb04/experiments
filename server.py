@@ -1,6 +1,7 @@
 
 from flask import Flask, request
 import requests
+import base64
 
 app = Flask(__name__)
 
@@ -10,19 +11,17 @@ URL is decoded and is sent as a param to save_to_disk()
 """
 @app.route('/attachment', methods=['POST'])
 def saves_content():
-   url = request.get_data()
-   save_to_disk(url.decode())
-   return url
+    data = request.get_data()
+    # print(data, type(data))
+    save_to_disk(data)
+    return "Received"
 
 """
 Writes attachment url to disk.
 """
-def save_to_disk(url):
-    r = requests.get(url)
-    contents = r.content
-    # find system to change names of url, with UUID?
-    with open("attachment.pdf", 'wb') as f:
-        f.write(contents)
+def save_to_disk(data):
+    with open("attachment5.pdf", 'wb') as f:
+        f.write(data)
 
 # TODO: Add a function that extracts text from the PDF
 
