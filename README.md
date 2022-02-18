@@ -18,6 +18,7 @@
     - pip install pdftotext
         - if pdftotext has a legacy error and throwing an architecture flag
             - run export ARCHFLAGS="-arch x86_64"
+    - pip install typing_extensions
 
 ### Create an .env file and add (DON'T HAVE TO DO THIS)
 - ATTACHMENT\_URL = the_attachemnt_url
