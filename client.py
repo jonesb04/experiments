@@ -1,12 +1,11 @@
 '''
-Allows clients to save 
+Allows clients to send pdf contents from a downloadable link
 
-Comments with attachments are not saved, with this (c_Attachemnt) we can finally get what the real attachments are
-
-Does the URL have to be the actual pdf or a link to a comment, scraping the pdf?
-- No just take attachment URL's
+Comments with attachments are not saved, 
+with this (c_Attachemnt) we can finally get what the attachment
 '''
 
+from typing_extensions import Required
 import requests
 import argparse
 
@@ -16,19 +15,22 @@ class Client():
         self.attachment_url = attachment_url
         attach_requests = requests.get(attachment_url.URL, " ")
         self.server_url = server_url
-        # Needs to check if this works for other files, future testing note
         self.content = attach_requests.content
 
-    # This function saves the pdf to disk from the url
+    # Saves the pdf to disk from contents
     def save_to_disk(self):
         with open(self.file_name, 'wb') as f:
             f.write(self.content)
 
-    # This function send the attachment url to the server
+    # Send the attachment contents to the server in binary
     def send_data(self):
         # Have to make sure encodings are always bytes represented, future testing note
         requests.post(self.server_url + "/attachment", data=self.content)
 
+'''
+run python3 client.py <PDF_url> in terminal
+PDFs can be found in README.md
+'''
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description="Input URL to be downloaded.")
     parser.add_argument("URL")
