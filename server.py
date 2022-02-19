@@ -1,6 +1,6 @@
 
 from flask import Flask, request
-import pdftotext
+import pdfplumber
 
 app = Flask(__name__)
 
@@ -11,6 +11,7 @@ Server receives post request from Client with URL content.
 def saves_content():
     data = request.get_data()
     save_to_disk(data)
+    extract_pdf_to_txt('attachment.pdf')
     return "Received"
 
 """
@@ -20,18 +21,16 @@ URL's can be found in README
 def save_to_disk(data):
     with open("attachment.pdf", 'wb') as f:
         f.write(data)
-    extract_pdf_to_txt('attachment.pdf')
-
+    
 '''
 Extracts text from PDF
 '''
 def extract_pdf_to_txt(pdf):
-    with open(pdf, 'rb') as file:
-        txt = pdftotext.PDF(file)
-
-    with open('attachment.txt', 'w') as file:
-        for page in txt:
-                file.write(page)
+    with pdfplumber.open('attachment.pdf') as pdf:
+        file = pdf.pages
+        with open('attachment.txt', 'w') as f:
+            for page in file:
+                f.write(page.extract_text())
 
 
 if __name__ == "__main__":
