@@ -9,11 +9,16 @@
 - source .venv/bin/activate
 
 ### Install dependices
-- pip install requests
-- pip install python-dotenv
-- pip install flask
 - brew install poppler
-- pip install pdftotext
+- pip install -r requirements.txt
+- if issues installing try installing seperatly
+    - pip install requests
+    - pip install python-dotenv
+    - pip install flask
+    - pip install pdftotext
+        - if pdftotext has a legacy error and throwing an architecture flag
+            - run export ARCHFLAGS="-arch x86_64"
+    - pip install typing_extensions
 
 ### Create an .env file and add (DON'T HAVE TO DO THIS)
 - ATTACHMENT\_URL = the_attachemnt_url
@@ -24,3 +29,6 @@
 - export FLASK_APP=flask_server.py
 - export FLASK_ENV=development
 - flask run
+
+### Run client in terminal
+- run python3 client.py <PDF_URL>
